@@ -57,7 +57,7 @@ class TransactionPage extends StatefulWidget {
   const TransactionPage({super.key, required this.dataManager});
 
   @override
-  _TransactionPageState createState() => _TransactionPageState();
+  State<TransactionPage> createState() => _TransactionPageState();
 }
 
 class _TransactionPageState extends State<TransactionPage> {
@@ -254,7 +254,7 @@ class InputStockPage extends StatefulWidget {
   const InputStockPage({super.key, required this.dataManager});
 
   @override
-  _InputStockPageState createState() => _InputStockPageState();
+  State<InputStockPage> createState() => _InputStockPageState();
 }
 
 class _InputStockPageState extends State<InputStockPage> {
@@ -330,7 +330,7 @@ class ProductSettingsPage extends StatefulWidget {
   const ProductSettingsPage({super.key, required this.dataManager});
 
   @override
-  _ProductSettingsPageState createState() => _ProductSettingsPageState();
+  State<ProductSettingsPage> createState() => _ProductSettingsPageState();
 }
 
 class _ProductSettingsPageState extends State<ProductSettingsPage> {
@@ -459,7 +459,7 @@ class SalesReportPage extends StatefulWidget {
   const SalesReportPage({super.key, required this.dataManager});
 
   @override
-  _SalesReportPageState createState() => _SalesReportPageState();
+  State<SalesReportPage> createState() => _SalesReportPageState();
 }
 
 class _SalesReportPageState extends State<SalesReportPage> {
