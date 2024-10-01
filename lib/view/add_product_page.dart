@@ -29,12 +29,50 @@ class ProductSettingsPage extends StatelessWidget {
                   itemCount: controller.products.length,
                   itemBuilder: (context, index) {
                     final product = controller.products[index];
-                    return ListTile(
-                      title: Text(product.name,
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(
-                          'Harga: Rp.${product.price.toStringAsFixed(0)} | Stock: ${product.stock}'),
-                      onTap: () => _showUpdateProductForm(product),
+                    return Dismissible(
+                      key: Key(product.id),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      confirmDismiss: (direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Confirm"),
+                              content: Text(
+                                  "Are you sure you want to delete ${product.name}?"),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: const Text("CANCEL"),
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                  child: const Text("DELETE"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      onDismissed: (direction) {
+                        _deleteProduct(product.id);
+                      },
+                      child: ListTile(
+                        title: Text(product.name,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text(
+                            'Harga: Rp.${product.price.toStringAsFixed(0)} | Stock: ${product.stock}'),
+                        onTap: () => _showUpdateProductForm(product),
+                      ),
                     );
                   },
                 ),
@@ -108,5 +146,10 @@ class ProductSettingsPage extends StatelessWidget {
       Get.back();
       Get.snackbar('Success', 'Product updated successfully');
     }
+  }
+
+  void _deleteProduct(String productId) {
+    Get.find<DataManager>().deleteProduct(productId);
+    Get.snackbar('Success', 'Product deleted successfully');
   }
 }

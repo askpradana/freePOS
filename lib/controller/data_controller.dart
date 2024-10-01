@@ -69,4 +69,9 @@ class DataManager extends GetxController {
     products.clear();
     sales.clear();
   }
+
+  Future<void> deleteProduct(String productId) async {
+    products.removeWhere((product) => product.id == productId);
+    await box.write('products', products.map((p) => p.toJson()).toList());
+  }
 }
