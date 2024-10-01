@@ -29,7 +29,7 @@ class ModelSale {
 
 class SaleItem {
   final String productId;
-  final int quantity;
+  int quantity;
   final double price;
 
   SaleItem(
