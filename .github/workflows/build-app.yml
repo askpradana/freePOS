@@ -13,14 +13,14 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: '13'
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v3
         with:
           channel: 'beta'
       - run: flutter pub get
       - run: flutter format --set-exit-if-changed .
       - run: flutter analyze .
       - run: flutter build apk
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: release-apk
           path: build/app/outputs/apk/release/app-release.apk
