@@ -29,8 +29,21 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
       
-      - name: Upload APK
+      - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/app/outputs/flutter-apk/app-release.apk
+          tag: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Release ${{ github.ref }}
+          body: |
+            APK release for version ${{ github.ref }}.
+            - Download the APK from the assets below.
+          draft: false
+          prerelease: false
